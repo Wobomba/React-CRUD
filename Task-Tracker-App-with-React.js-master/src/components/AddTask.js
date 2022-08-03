@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import Swal from "sweetalert2";
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { MobileDateRangePicker } from '@mui/x-date-pickers-pro/MobileDateRangePicker';
+
 
 const AddTask = ({ onSave }) => {
     const [names, setNames] = useState('');
@@ -68,28 +65,10 @@ const AddTask = ({ onSave }) => {
                 <label>Name</label>
                 <input type="text" placeholder="Name" value={names} onChange={(e) => setNames(e.target.value)} />
             </div>
-
-            {/*Date of birth */}
-            <div className="form-control">
-                <label>Date of Birth</label>
-                <MobileDateRangePicker
-          value={value}
-          onChange={(newValue) => {
-            setValue(newValue);
-          }}
-          renderInput={(startProps, endProps) => (
-            <React.Fragment>
-              <TextField {...startProps} />
-              <Box sx={{ mx: 2 }}> to </Box>
-              <TextField {...endProps} />
-            </React.Fragment>
-          )}
-        />
-
         {/*}
                 <input type="text" placeholder="Date of Birth" value={doB} onChange={(e) => setDoB(e.target.value)} />*/}
                 
-            </div>
+          
 
             {/*NIN */}
             <div className="form-control">
@@ -116,10 +95,7 @@ const AddTask = ({ onSave }) => {
             </div>
 
             {/*gender */}
-            <FormGroup>
-                <FormControlLabel control={<Checkbox defaultChecked />} label="Label" value={gender} onChange={(e.target.value)}/>
-                <FormControlLabel disabled control={<Checkbox />} label="Disabled" value={gender} onChange={(e.target.value)}/>
-            </FormGroup>
+          
 
 
             {/*Contact */}
