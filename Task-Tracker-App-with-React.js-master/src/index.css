@@ -66,7 +66,7 @@ body {
   width: 100%;
 }
 
-.task {
+.citizen {
   background: #f4f4f4;
   margin: 5px auto;
   max-width: 100%;
@@ -78,7 +78,7 @@ body {
   justify-content: space-between;
 }
 
-.task::-webkit-scrollbar {
+.citizen::-webkit-scrollbar {
   display: none;
 }
 

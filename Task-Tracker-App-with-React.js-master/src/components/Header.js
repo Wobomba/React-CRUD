@@ -5,7 +5,7 @@ import "../index.css";
 const Header = ({ showForm, changeTextAndColor }) => {
     return (
         <header className="header">
-            <h2 className="app-header">Task Manager App</h2>
+            <h2 className="app-header">UCVR</h2>
             <Button onClick={showForm} color={changeTextAndColor ? 'red' : 'green'} text={changeTextAndColor ? 'Close' : 'Add'} />
         </header>
     )

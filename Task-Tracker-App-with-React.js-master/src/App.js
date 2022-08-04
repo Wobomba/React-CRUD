@@ -1,7 +1,7 @@
 // Importing Components
 import Header from './components/Header';
-import Tasks from './components/Tasks';
-import AddTask from './components/AddTask';
+import Citizens from './components/Citizens';
+import AddCitizen from './components/AddCitizen';
 // Importing React Hooks
 import { useState, useEffect } from 'react';
 // Importing Packages
@@ -11,8 +11,8 @@ import Swal from "sweetalert2";
 function App() {
     // All States
     const [loading, setloading] = useState(true); // Pre-loader before page renders
-    const [tasks, setTasks] = useState([]); // Task State
-    const [showAddTask, setShowAddTask] = useState(false); // To reveal add task form
+    const [citizens, setCitizens] = useState([]); // Task State
+    const [showAddCitizen, setShowAddCitizen] = useState(false); // To reveal add task form
 
     // Pre-loader
     useEffect(() => {
@@ -22,61 +22,78 @@ function App() {
     }, [])
 
     // Fetching from Local Storage
-    const getTasks = JSON.parse(localStorage.getItem("taskAdded"));
+    const getCitizens = JSON.parse(localStorage.getItem("citizenAdded"));
 
     useEffect(() => {
-        if (getTasks == null) {
-            setTasks([])
+        if (getCitizens == null) {
+            setCitizens([])
         } else {
-            setTasks(getTasks);
+            setCitizens(getCitizens);
         }
         // eslint-disable-next-line
     }, [])
 
     // Add Task
-    const addTask = (task) => {
+    const addCitizen = (citizen) => {
         const id = uuidv4();
-        const newTask = { id, ...task }
+        const newCitizen = { id, ...citizen }
 
-        setTasks([...tasks, newTask]);
+        setCitizens([...citizens, newCitizen]);
 
         Swal.fire({
             icon: 'success',
-            title: 'Yay...',
-            text: 'You have successfully added a new task!'
+            title: 'Congrats',
+            text: 'Detail added'
         })
 
-        localStorage.setItem("taskAdded", JSON.stringify([...tasks, newTask]));
+        localStorage.setItem("citizenAdded", JSON.stringify([...citizens, newCitizen]))
     }
 
     // Delete Task
-    const deleteTask = (id) => {
-        const deleteTask = tasks.filter((task) => task.id !== id);
+    const deleteCitizen = (id) => {
+        const deleteCitizen = citizens.filter((citizen) => citizen.id !== id)
 
-        setTasks(deleteTask);
+        setCitizens(deleteCitizen);
 
         Swal.fire({
             icon: 'success',
-            title: 'Oops...',
-            text: 'You have successfully deleted a task!'
+            title: 'Oops!',
+            text: 'Delete successful'
         })
 
-        localStorage.setItem("taskAdded", JSON.stringify(deleteTask));
+        localStorage.setItem("citizenAdded", JSON.stringify(deleteCitizen))
     }
 
     // Edit Task
-    const editTask = (id) => {
+    const editCitizen = (id) => {
 
-        const text = prompt("Task Name");
-        const day = prompt("Day and Time");
-        let data = JSON.parse(localStorage.getItem('taskAdded'));
+        const names1 = prompt("Name:")
+        const Nin1 = prompt("National Identification Number:")
+        const contacts = prompt("Contact:")
+        const type_of_vaccination = prompt("Type of Vaccination:")
+        const date_of_vaccination = prompt("Date of Vaccination:")
+        const gender = prompt("Gender:")
+        const incharge = prompt("Incharge:")
+        const district = prompt("District")
+        const date_of_birth = prompt ("Date of Birth")
+
+
+
+        let data = JSON.parse(localStorage.getItem('citizenAdded'))
 
         const myData = data.map(x => {
             if (x.id === id) {
                 return {
                     ...x,
-                    text: text,
-                    day: day,
+                    names1: names1,
+                    Nin1: Nin1,
+                    contacts: contacts,
+                    type_of_vaccination: type_of_vaccination,
+                    date_of_vaccination: date_of_vaccination,
+                    date_of_birth: date_of_birth,
+                    gender: gender,
+                    incharge: incharge,
+                    district: district,
                     id: uuidv4()
                 }
             }
@@ -85,16 +102,17 @@ function App() {
 
         Swal.fire({
             icon: 'success',
-            title: 'Yay...',
-            text: 'You have successfully edited an existing task!'
+            title: 'Congrats',
+            text: 'Edit complete'
         })
 
-        localStorage.setItem("taskAdded", JSON.stringify(myData));
+        localStorage.setItem("citizenAdded", JSON.stringify(myData));
         window.location.reload();
     }
 
     return (
         <>
+        {/*Visually hidden loading icons */}
             {
                 loading
                     ?
@@ -118,21 +136,21 @@ function App() {
                     :
                     <div className="container">
                         {/* App Header that has open and App Name */}
-                        <Header showForm={() => setShowAddTask(!showAddTask)} changeTextAndColor={showAddTask} />
+                        <Header showForm={() => setShowAddCitizen(!showAddCitizen)} changeTextAndColor={showAddCitizen} />
 
                         {/* Revealing of Add Task Form */}
-                        {showAddTask && <AddTask onSave={addTask} />}
+                        {showAddCitizen && <AddCitizen onSave={addCitizen} />}
 
                         {/* Task Counter */}
-                        <h3>Number of Tasks: {tasks.length}</h3>
+                        <h3>Number of Citizens: {citizens.length}</h3>
 
-                        {/* Displaying of Tasks */}
+                        {/* Displaying of available citizens */}
                         {
-                            tasks.length > 0
+                            citizens.length > 0
                                 ?
-                                (<Tasks tasks={tasks} onDelete={deleteTask} onEdit={editTask} />)
+                                (<Citizens citizens={citizens} onDelete={deleteCitizen} onEdit={editCitizen} />)
                                 :
-                                ('No Task Found!')
+                                ('No Citizen Found!')
                         }
                     </div>
             }
